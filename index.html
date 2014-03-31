@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Syncany : Syncany is an open-source cloud storage and filesharing application. It allows users to backup and share certain folders of their workstations using any kind of storage" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Syncany</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/binwiederhier/syncany">View on GitHub</a>
+
+          <h1 id="project_title">Syncany</h1>
+          <h2 id="project_tagline">Syncany is an open-source cloud storage and filesharing application. It allows users to backup and share certain folders of their workstations using any kind of storage</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/binwiederhier/syncany/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/binwiederhier/syncany/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="syncany----" class="anchor" href="#syncany----"><span class="octicon octicon-link"></span></a>Syncany <a href="https://travis-ci.org/binwiederhier/syncany"><img src="https://travis-ci.org/binwiederhier/syncany.png?branch=master" alt="Build Status"></a> <a href="http://syncany.org/reports/coverage/"><img src="http://api.syncany.org/badge/coverage.php" alt="Coverage Status"></a> <a href="http://syncany.org/reports/tests/"><img src="http://api.syncany.org/badge/tests.php" alt="Test Status"></a> <a href="http://syncany.org/reports/cloc.xml"><img src="http://api.syncany.org/badge/lines.php" alt="Lines of Code"></a>
+</h1>
+
+<blockquote>
+<p><strong>Important:</strong> Please be aware that this is still ALPHA code! Do not use it
+                 for important files.</p>
+</blockquote>
+
+<p>Syncany is an open-source cloud storage and filesharing application. It allows
+users to backup and share certain folders of their workstations using any kind
+of storage, e.g. FTP, Amazon S3 or Google Storage.</p>
+
+<p>While the basic idea is similar to Dropbox and JungleDisk, Syncany is
+open-source and additionally provides data encryption and more flexibility in
+terms of storage type and provider:</p>
+
+<ul>
+<li>
+<strong>Data encryption</strong>: Syncany encrypts the files locally, so that any online
+storage can be used even for sensitive data.<br>
+</li>
+<li>
+<strong>Any storage</strong>: Syncany uses a plug-in based storage system. It can
+be used with any type of remote storage.</li>
+</ul><p><strong>Directly jump to ...</strong></p>
+
+<ul>
+<li><a href="#download-and-install-daily-snapshots">Download and install daily snapshots</a></li>
+<li><a href="#sample-usage">Sample usage</a></li>
+<li><a href="#build-and-test-syncany">Build and test Syncany</a></li>
+<li><a href="#documentation-diagrams-and-screencasts">Documentation, diagrams and screencasts</a></li>
+<li><a href="#setup-eclipse-ide-for-development">Setup Eclipse IDE for development</a></li>
+<li><a href="#how-can-i-help">How can I help?</a></li>
+<li><a href="#licensing-website-and-contact">Licensing, website and contact</a></li>
+</ul><h2>
+<a name="download-and-install-daily-snapshots" class="anchor" href="#download-and-install-daily-snapshots"><span class="octicon octicon-link"></span></a>Download and install daily snapshots</h2>
+
+<p>We're building snapshots of the latest master-branch commit as soon as they are committed (older snapshots
+are removed). At the moment, the build process outputs a *.tar.gz and a *.zip archive, as well as
+an executable for Windows (*.exe installer) and a Debian/Ubuntu package (*.deb).</p>
+
+<p><strong>To download it, check out the <a href="http://syncany.org/dist/">latest builds</a>!</strong><br>
+The corresponding <a href="http://syncany.org/docs/javadoc/">JavaDoc</a>, the
+<a href="http://syncany.org/reports/tests/">JUnit test reports</a> and 
+the <a href="http://syncany.org/reports/coverage/">Cobertura coverage reports</a> are also available.</p>
+
+<p><strong>Please note</strong>: These builds are created from <em>unstable</em>, sometimes <em>erroneous</em> code. 
+Things might change very often and newer versions might not support older repositories.
+Please <strong>do NOT</strong> use these builds for important files.</p>
+
+<h2>
+<a name="sample-usage" class="anchor" href="#sample-usage"><span class="octicon octicon-link"></span></a>Sample usage</h2>
+
+<p>Usage is pretty similar to a version control system. If you have used Git or
+SVN, it should feel a lot alike.</p>
+
+<p><strong>1. Initialize a local directory</strong></p>
+
+<pre><code>    $ syncany init 
+
+    Choose a storage plugin. Available plugins are: ftp, local, s3
+    Plugin: ftp
+
+    Connection details for FTP connection:
+    - hostname: myhost.example.com
+    - username: myuser1
+    - password: somepassword1
+    - port (optional):
+
+    The password is used to encrypt data on the remote storage.
+    Please choose it wisely.
+
+    Password: (secret password)
+    Confirm: (repeat it)
+</code></pre>
+
+<p>This sets up a new repository on the given remote storage and initializes the
+local folder. You can now use <code>syncany connect</code> to connect to this repository
+from other clients.</p>
+
+<p><strong>2. Add files and synchronize</strong></p>
+
+<p>To let Syncany do everything automatically, simple use the <code>syncany watch</code> command. 
+This command will synchronize your local files. </p>
+
+<pre><code>    $ syncany watch 
+</code></pre>
+
+<p>You can also manually trigger the upload of your local files or the download of remote changes:</p>
+
+<pre><code>    $ syncany up
+    $ syncany down
+</code></pre>
+
+<p>For a detailed demo, please refer to a <a href="#documentation-diagrams-and-screencasts">screencast</a>. </p>
+
+<h2>
+<a name="build-and-test-syncany" class="anchor" href="#build-and-test-syncany"><span class="octicon octicon-link"></span></a>Build and test Syncany</h2>
+
+<p><strong>0. Requirements</strong>: Syncany is based on Java 7 and we use Gradle for dependency management
+and as build tool. Gradle does all the dependency magic. All you need to build Syncany
+is a <strong>JDK 7</strong>. If you like to create a Debian package (optional), you also need
+<a href="https://github.com/jordansissel/fpm">FPM</a> installed.</p>
+
+<p>On a Debian-based system that would be:</p>
+
+<pre><code>    $ sudo apt-get install openjdk-7-jdk
+</code></pre>
+
+<p>And optional for building Debian packages (<em>debian</em> task):</p>
+
+<pre><code>    $ sudo apt-get install ruby ruby-dev build-essential rubygems
+    $ sudo gem install fpm
+</code></pre>
+
+<p><strong>1. Checkout code and build</strong></p>
+
+<pre><code>    git clone http://github.com/binwiederhier/syncany
+    cd syncany        
+    ./gradlew installApp         (on Linux / Mac OS)
+    gradlew installApp           (on Windows)
+</code></pre>
+
+<p>This compiles and installs the Syncany command line client to 
+<code>syncany-cli/build/install/syncany/bin/syncany</code>. You can run it from there.</p>
+
+<p><strong>2. Install command line client (to run <code>syncany</code> from anywhere)</strong></p>
+
+<p>To be able to run <code>syncany</code> (or short: <code>sy</code>) from anywhere, you can install a 
+symbolic link on your system. On Linux, the link is placed in <code>/usr/local/bin</code>,
+on Windows, a batch file is placed in <code>C:\Windows</code>. To do this, run the
+following commands:</p>
+
+<p><em>On Linux / Mac OS:</em></p>
+
+<pre><code>    sudo ./gradlew fakeinstall   (on Linux / Mac OS)
+</code></pre>
+
+<p><em>On Windows:</em></p>
+
+<ul>
+<li>Click <em>Start</em>, type <code>cmd</code>, and then press CTRL+SHIFT+ENTER. If a warning appears, click <em>Yes</em>.</li>
+<li>In the command box, <code>cd</code> to your checkout directory and run <code>gradlew fakeinstall</code>
+</li>
+</ul><p>Please note: There is no easy way to permanently install Syncany on your system, 
+yet. We're working on an installer for Windows, and packages for Linux.</p>
+
+<p><strong>3. Run it!</strong></p>
+
+<pre><code>    syncany --help        
+</code></pre>
+
+<h2>
+<a name="documentation-diagrams-and-screencasts" class="anchor" href="#documentation-diagrams-and-screencasts"><span class="octicon octicon-link"></span></a>Documentation, diagrams and screencasts</h2>
+
+<p>There is quite a bit of reading material on Syncany already. Check out the following links:</p>
+
+<p><strong>Posts and papers</strong></p>
+
+<ul>
+<li>
+<a href="http://blog.philippheckel.com/2013/10/18/syncany-explained-idea-progress-development-future/">Blog post: Syncany explained: idea, progress, development and future (part 1)</a> (Oct 2013)</li>
+<li>
+<a href="http://blog.philippheckel.com/2014/02/14/deep-into-the-code-of-syncany-cli-application-flow-and-data-model/">Blog post: Deep into the code of Syncany – CLI, application flow and data model (part 2)</a> (Feb 2014)</li>
+<li>
+<a href="http://blog.philippheckel.com/2013/05/20/minimizing-remote-storage-usage-and-synchronization-time-using-deduplication-and-multichunking-syncany-as-an-example/">Master's thesis: Minimizing remote storage usage and synchronization time using deduplication and multichunking: Syncany as an example</a> (2011)</li>
+</ul><p><strong>Screencasts</strong></p>
+
+<ul>
+<li>
+<a href="http://www.youtube.com/watch?v=xE8nGL8U4Gg">Screencast: Developer How-to - Checkout code, compile and run two clients on Linux, using FTP plugin</a> (14 minutes)</li>
+<li>
+<a href="http://www.youtube.com/watch?v=tvsZcuhVH8c">Screencast: Conflict handling on Linux, using local plugin</a> (2 minutes)</li>
+<li>
+<a href="http://www.youtube.com/watch?v=skKzqID_Zrc">Screencast: Setup Amazon S3 for two users, and sync two clients with Syncany</a> (9 minutes)</li>
+</ul><p><strong>Diagrams</strong></p>
+
+<ul>
+<li><a href="https://raw.github.com/binwiederhier/syncany/15efd1df039253a3884dea36ca21f58628b32c04/docs/Diagram%20Application%20Flow%202.png">Diagram: Syncany application flow example</a></li>
+<li><a href="https://raw.github.com/binwiederhier/syncany/15efd1df039253a3884dea36ca21f58628b32c04/docs/Diagram%20Chunking%20Framework.png">Diagram: Chunking framework class diagram</a></li>
+<li><a href="https://raw.github.com/binwiederhier/syncany/15efd1df039253a3884dea36ca21f58628b32c04/docs/Diagram%20Connection%20Plugins.png">Diagram: Storage plugins class diagram</a></li>
+<li><a href="https://raw.github.com/binwiederhier/syncany/15efd1df039253a3884dea36ca21f58628b32c04/docs/Diagram%20Database.png">Diagram: Database class diagram</a></li>
+<li><a href="https://raw.github.com/binwiederhier/syncany/a51fafbe736c304dd809a89af7e1144b20316642/syncany-assets/documentation/Diagram%20Crypto%20Concept.png">Diagram: Cryptography concept</a></li>
+</ul><p><strong>Generated JavaDoc and JUnit Reports</strong><br>
+The up-to-date JavaDoc of the master branch is always compiled to <a href="http://syncany.org/docs/javadoc">syncany.org/docs/javadoc</a>. It includes the JavaDoc of all Gradle
+modules in the repo. All results of the JUnit tests and Cobertura coverage reports are compiled to <a href="http://syncany.org/reports/">syncany.org/reports</a>. The corresponding distributables for this code are located at <a href="http://syncany.org/dist/">syncany.org/dist</a>.</p>
+
+<h2>
+<a name="setup-eclipse-ide-for-development" class="anchor" href="#setup-eclipse-ide-for-development"><span class="octicon octicon-link"></span></a>Setup Eclipse IDE for development</h2>
+
+<ol>
+<li>
+<p>Checkout Syncany on the command line: </p>
+
+<pre><code>cd /home/user/workplace
+git clone http://github.com/binwiederhier/syncany
+cd syncany
+</code></pre>
+</li>
+<li>
+<p>Generate Eclipse project files and download dependencies:</p>
+
+<pre><code>./gradlew eclipse      (on Linux / Mac OS)
+gradlew eclipse        (on Windows)   
+</code></pre>
+</li>
+<li><p>Open Eclipse and create a new workplace, e.g. at "/home/user/workplace"</p></li>
+<li>
+<p>In Eclipse: File -&gt; Import -&gt; Existing Projects Into Workplace
+-&gt; Select Root Directory --&gt; Browse</p>
+
+<ul>
+<li>Select "/home/user/workplace/syncany"</li>
+<li>[x] Tick the <em>Search nested projects</em> checkbox (only available in <em>Eclipse Kepler</em>)</li>
+</ul>
+</li>
+</ol><ol>
+<li>Click "Finish"</li>
+</ol><h2>
+<a name="how-can-i-help" class="anchor" href="#how-can-i-help"><span class="octicon octicon-link"></span></a>How can I help?</h2>
+
+<p>If you'd like to help developing Syncany, there are a few ways to do so.</p>
+
+<ol>
+<li><p><strong>TODO markers</strong>: The Java code contains lots of <code>TODO</code> markers, classified in <em>high</em>,
+<em>medium</em> and <em>low</em>. Using the <em>Tasks</em> tab in Eclipse, pick one or two and start coding. To get
+started, check out the <em>Setup Eclipse</em> section above.</p></li>
+<li><p><strong>Issues, features and tasks</strong>: Besides the markers in the code, there are lots of other things 
+that need doing. There is an always up-to-date list in the 
+<a href="https://github.com/binwiederhier/syncany/issues">issue tracker</a> with the label
+<a href="https://github.com/binwiederhier/syncany/issues?labels=status%3Ahelp-needed">status:help-needed</a>.</p></li>
+</ol><p>If you have questions, feel free to ask. There are maaaany ways to do so. Check out the section below!</p>
+
+<h2>
+<a name="licensing-website-and-contact" class="anchor" href="#licensing-website-and-contact"><span class="octicon octicon-link"></span></a>Licensing, website and contact</h2>
+
+<p>Syncany is licensed under the GPLv2 open source license. It is mainly developed by <a href="http://blog.philippheckel.com/">Philipp C. Heckel</a>. We are always looking for people to join or help out. Feel free to contact us:</p>
+
+<ul>
+<li>
+<a href="http://www.syncany.org/">Syncany website</a>, still with screenshots of the old interface</li>
+<li>
+<a href="https://launchpad.net/%7Esyncany-team">Mailing list</a>, still on Launchpad (<strong>active!</strong>)</li>
+<li>
+<a href="http://webchat.freenode.net/?channels=syncany">IRC channel #syncany on Freenode</a> (my nick is <em>binwiederhier</em>)</li>
+<li>
+<a href="http://twitter.com/#!/syncany">@syncany on Twitter</a>, somewhat quiet there, though ...</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Syncany maintained by <a href="https://github.com/binwiederhier">binwiederhier</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
